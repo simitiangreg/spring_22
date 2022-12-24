@@ -1,3 +1,3 @@
 # Demo
 
-This is Krikor's first file. Exciting
+This is Krikor's first repository. Exciting
