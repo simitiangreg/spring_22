@@ -3,6 +3,8 @@
 import pandas as pd
 import numpy as np
 from joblib import dump
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 def head(filename, lines=5):
     """
@@ -102,3 +104,35 @@ def run_linear_regression_test(
         print('Your RMSE loss is: {}'.format(loss))
         return loss
     return loss < threshold
+
+def plot_distribution(data, label):
+    fig, axs = plt.subplots(nrows=2)
+
+    sns.displot(
+        data[label], 
+        ax=axs[0]
+    )
+    sns.boxplot(
+        data[label],
+        width=0.3, 
+        ax=axs[1],
+        showfliers=False,
+    )
+
+    # Align axes
+    spacer = np.max(data[label]) * 0.05
+    xmin = np.min(data[label]) - spacer
+    xmax = np.max(data[label]) + spacer
+    axs[0].set_xlim((xmin, xmax))
+    axs[1].set_xlim((xmin, xmax))
+
+    # Remove some axis text
+    axs[0].xaxis.set_visible(False)
+    axs[0].yaxis.set_visible(False)
+    axs[1].yaxis.set_visible(False)
+
+    # Put the two plots together
+    plt.subplots_adjust(hspace=0)
+
+    # Adjust boxplot fill to be white
+    axs[1].artists[0].set_facecolor('white')
